@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlagHolsterController : MonoBehaviour {
 	public bool hasFlag;
+	public GameObject flag;
 
 	void Awake () {
 		checkIfHasFlag ();
@@ -25,10 +26,24 @@ public class FlagHolsterController : MonoBehaviour {
 
 			if (child.tag == "Flag") {
 				hasFlag = true;
+				flag = child.gameObject;
 				return hasFlag;
 			}
 		}
 		hasFlag = false;
 		return hasFlag;
 	}
+
+	public void giveFlagToPlayer (GameObject player)
+	{
+		if (!hasFlag) {
+			return;
+		}
+
+		flag.GetComponent <FlagController> ().makePlayerNewParent(player);
+
+		hasFlag = false;
+		flag = null;
+	}
+		
 }

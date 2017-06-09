@@ -9,6 +9,9 @@ public class CharacterController : MonoBehaviour {
 	public float jumpSpeed = 2260.0F;
 	public string teamColor;
 
+	public float flagPosX;
+	public float flagPosZ;
+	public float flagRotateZ;
 
 	public Slider flagCaptureSlider;
 
@@ -20,6 +23,9 @@ public class CharacterController : MonoBehaviour {
 	public bool pickingUpFlag = false;
 	private float flagPickupTime;
 	private float flagPickupCountup;
+
+	public GameObject flagBase = null;
+	public GameObject equippedFlag = null;
 
 
 	public string getTeam() {
@@ -77,6 +83,7 @@ public class CharacterController : MonoBehaviour {
 			flagCaptureSlider.value = flagPickupCountup / flagPickupTime;
 			if (flagPickupCountup >= flagPickupTime) 
 			{
+				flagBase.GetComponent<FlagBaseController> ().playerRetrieveFlag (transform.gameObject);
 				flagEquipped = true;
 				stopFlagPickup ();
 			}
